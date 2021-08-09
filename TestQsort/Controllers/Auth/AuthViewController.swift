@@ -34,6 +34,7 @@ extension AuthViewController {
         signInButton.setTitleColor(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0), for: .normal)
         signInButton.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         signInButton.layer.cornerRadius = 5
+        signInButton.addTarget(self, action: #selector(tapSignInButton), for: .touchUpInside)
         
         view.addSubview(titleLabel)
         view.addSubview(loginTextField)
@@ -70,5 +71,11 @@ extension AuthViewController {
             make.width.equalTo(300)
             make.height.equalTo(40)
         }
+    }
+    
+    @objc func tapSignInButton() {
+        let mainTabBar = MainTabBarController()
+        mainTabBar.modalPresentationStyle = .fullScreen
+        present(mainTabBar, animated: true, completion: nil)
     }
 }

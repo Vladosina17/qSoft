@@ -15,6 +15,9 @@
 		480E911B26C135B6000421A1 /* UITextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911A26C135B6000421A1 /* UITextField + Extension.swift */; };
 		480E911E26C13647000421A1 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911D26C13647000421A1 /* BaseTextField.swift */; };
 		480E912026C13E2B000421A1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911F26C13E2B000421A1 /* MainViewController.swift */; };
+		480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912126C140DA000421A1 /* MainTabBarController.swift */; };
+		480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */; };
+		480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912926C162DE000421A1 /* DetailViewController.swift */; };
 		C4E7971419CF33CD06EE72C5 /* Pods_TestQsort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +33,9 @@
 		480E911A26C135B6000421A1 /* UITextField + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Extension.swift"; sourceTree = "<group>"; };
 		480E911D26C13647000421A1 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		480E911F26C13E2B000421A1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		480E912126C140DA000421A1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		480E912926C162DE000421A1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestQsort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D801BA479D0CF4FBA4B5BC /* Pods-TestQsort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestQsort.debug.xcconfig"; path = "Target Support Files/Pods-TestQsort/Pods-TestQsort.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,8 +97,10 @@
 		480E911826C13399000421A1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				480E911626C13092000421A1 /* AuthViewController.swift */,
-				480E911F26C13E2B000421A1 /* MainViewController.swift */,
+				480E912B26C16445000421A1 /* Detail */,
+				480E912526C14D96000421A1 /* TabBar */,
+				480E912426C14D86000421A1 /* Main */,
+				480E912326C14D7B000421A1 /* Auth */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -111,6 +119,47 @@
 				480E911D26C13647000421A1 /* BaseTextField.swift */,
 			);
 			path = Elements;
+			sourceTree = "<group>";
+		};
+		480E912326C14D7B000421A1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				480E911626C13092000421A1 /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		480E912426C14D86000421A1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				480E911F26C13E2B000421A1 /* MainViewController.swift */,
+				480E912626C14DBF000421A1 /* Cell */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		480E912526C14D96000421A1 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				480E912126C140DA000421A1 /* MainTabBarController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		480E912626C14DBF000421A1 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		480E912B26C16445000421A1 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				480E912926C162DE000421A1 /* DetailViewController.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		EA8AAA731079ECDAE83AB632 /* Frameworks */ = {
@@ -234,9 +283,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */,
 				480E911726C13092000421A1 /* AuthViewController.swift in Sources */,
 				480E910326C12A6B000421A1 /* AppDelegate.swift in Sources */,
 				480E911E26C13647000421A1 /* BaseTextField.swift in Sources */,
+				480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */,
+				480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */,
 				480E912026C13E2B000421A1 /* MainViewController.swift in Sources */,
 				480E910526C12A6B000421A1 /* SceneDelegate.swift in Sources */,
 				480E911B26C135B6000421A1 /* UITextField + Extension.swift in Sources */,
