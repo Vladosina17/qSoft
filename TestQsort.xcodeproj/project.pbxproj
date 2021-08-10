@@ -18,6 +18,9 @@
 		480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912126C140DA000421A1 /* MainTabBarController.swift */; };
 		480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */; };
 		480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912926C162DE000421A1 /* DetailViewController.swift */; };
+		480E913326C276DE000421A1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913226C276DE000421A1 /* WebViewController.swift */; };
+		480E913526C29CCF000421A1 /* InstagramApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913426C29CCF000421A1 /* InstagramApi.swift */; };
+		480E913726C29EDA000421A1 /* InstagramModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913626C29EDA000421A1 /* InstagramModels.swift */; };
 		C4E7971419CF33CD06EE72C5 /* Pods_TestQsort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +39,9 @@
 		480E912126C140DA000421A1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		480E912926C162DE000421A1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		480E913226C276DE000421A1 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		480E913426C29CCF000421A1 /* InstagramApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramApi.swift; sourceTree = "<group>"; };
+		480E913626C29EDA000421A1 /* InstagramModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramModels.swift; sourceTree = "<group>"; };
 		815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestQsort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D801BA479D0CF4FBA4B5BC /* Pods-TestQsort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestQsort.debug.xcconfig"; path = "Target Support Files/Pods-TestQsort/Pods-TestQsort.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,6 +90,7 @@
 			children = (
 				480E910226C12A6B000421A1 /* AppDelegate.swift */,
 				480E910426C12A6B000421A1 /* SceneDelegate.swift */,
+				480E912C26C26837000421A1 /* Service */,
 				480E911C26C13617000421A1 /* Elements */,
 				480E911926C1356B000421A1 /* Extension */,
 				480E911826C13399000421A1 /* Controllers */,
@@ -97,6 +104,7 @@
 		480E911826C13399000421A1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				480E913126C276B4000421A1 /* Web */,
 				480E912B26C16445000421A1 /* Detail */,
 				480E912526C14D96000421A1 /* TabBar */,
 				480E912426C14D86000421A1 /* Main */,
@@ -160,6 +168,23 @@
 				480E912926C162DE000421A1 /* DetailViewController.swift */,
 			);
 			path = Detail;
+			sourceTree = "<group>";
+		};
+		480E912C26C26837000421A1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				480E913426C29CCF000421A1 /* InstagramApi.swift */,
+				480E913626C29EDA000421A1 /* InstagramModels.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		480E913126C276B4000421A1 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				480E913226C276DE000421A1 /* WebViewController.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 		EA8AAA731079ECDAE83AB632 /* Frameworks */ = {
@@ -288,9 +313,12 @@
 				480E910326C12A6B000421A1 /* AppDelegate.swift in Sources */,
 				480E911E26C13647000421A1 /* BaseTextField.swift in Sources */,
 				480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */,
+				480E913326C276DE000421A1 /* WebViewController.swift in Sources */,
 				480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */,
+				480E913526C29CCF000421A1 /* InstagramApi.swift in Sources */,
 				480E912026C13E2B000421A1 /* MainViewController.swift in Sources */,
 				480E910526C12A6B000421A1 /* SceneDelegate.swift in Sources */,
+				480E913726C29EDA000421A1 /* InstagramModels.swift in Sources */,
 				480E911B26C135B6000421A1 /* UITextField + Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

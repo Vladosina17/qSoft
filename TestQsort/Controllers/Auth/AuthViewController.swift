@@ -11,9 +11,12 @@ import SnapKit
 class AuthViewController: UIViewController {
     
     let titleLabel = UILabel()
-    let loginTextField = BaseTextField(placeholder: "Введите логин")
-    let passwordTextField = BaseTextField(placeholder: "Введите пароль", isSecure: true)
     let signInButton = UIButton(type: .system)
+    
+    var instagramApi = InstagramApi.shared
+    var testUserData = InstagramTestUser(access_token: "", user_id: 0)
+    var instagramUser: InstagramUser?
+    var signedIn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +40,6 @@ extension AuthViewController {
         signInButton.addTarget(self, action: #selector(tapSignInButton), for: .touchUpInside)
         
         view.addSubview(titleLabel)
-        view.addSubview(loginTextField)
-        view.addSubview(passwordTextField)
         view.addSubview(signInButton)
         
         setupConstraints()
@@ -47,35 +48,44 @@ extension AuthViewController {
     private func setupConstraints() {
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(200)
             make.centerX.equalToSuperview()
-        }
-        
-        loginTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel).inset(150)
-            make.centerX.lessThanOrEqualToSuperview()
-            make.width.equalTo(300)
-            make.height.equalTo(40)
-        }
-        
-        passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(loginTextField).inset(60)
-            make.centerX.lessThanOrEqualToSuperview()
-            make.width.equalTo(300)
-            make.height.equalTo(40)
+            make.bottom.equalTo(signInButton.snp.top).offset(-30)
         }
         
         signInButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(50)
-            make.centerX.lessThanOrEqualToSuperview()
-            make.width.equalTo(300)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.height.equalTo(40)
+            make.width.equalTo(300)
         }
     }
     
     @objc func tapSignInButton() {
-        let mainTabBar = MainTabBarController()
-        mainTabBar.modalPresentationStyle = .fullScreen
-        present(mainTabBar, animated: true, completion: nil)
+        if testUserData.user_id == 0 {
+            presentWebViewController()
+        } else {
+            self.instagramApi.getInstagramUser(testUserData: self.testUserData) { [weak self] (user) in
+                self?.instagramUser = user
+                self?.signedIn = true
+                DispatchQueue.main.async {
+                    self?.presentAlert()
+                }
+            }
+        }
+        
     }
+    
+    func presentWebViewController() {
+        let webVC = WebViewController()
+        webVC.instagramApi = self.instagramApi
+        webVC.mainVC = self
+        present(webVC, animated: true)
+    }
+    
+    func presentAlert() {
+      let alert = UIAlertController(title: "Signed In:", message: "with account: @\(self.instagramUser!.username)", preferredStyle: UIAlertController.Style.alert)
+      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+      self.present(alert, animated: true)
+    }
+
 }

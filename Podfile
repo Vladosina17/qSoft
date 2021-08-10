@@ -6,6 +6,7 @@ target 'TestQsort' do
   use_frameworks!
  pod 'Kingfisher'
  pod 'SnapKit'
+ pod 'Alamofire'
   # Pods for TestQsort
 
 end
