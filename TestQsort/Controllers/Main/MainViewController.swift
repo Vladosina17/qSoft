@@ -10,11 +10,15 @@ import UIKit
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
      
     var collectionView: UICollectionView!
+    var instagramUserToken: InstagramTestUser?
+    let instagramApi = InstagramApi.shared
+    var instagramUser: InstagramUser?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         setupCollectionView()
+        getDataUser()
     }
 }
 
@@ -22,7 +26,7 @@ extension MainViewController {
     
     private func configure() {
         view.backgroundColor = .white
-        title = "Лента"
+//        title = "Лента"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выйти", style: .plain, target: self, action: #selector(tapLogOut))
     }
     
@@ -43,15 +47,31 @@ extension MainViewController {
         view.addSubview(collectionView)
     }
     
+    private func getDataUser() {
+        instagramApi.getInstagramUser{ [weak self] (user) in
+            self?.instagramUser = user
+            DispatchQueue.main.async {
+                self?.title = user.username
+            }
+        }
+    }
+    
 //MARK: - Actions
     
     @objc func tapLogOut() {
         let ac = UIAlertController(title: nil, message: "Вы хотите выйти из учетной записи?", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
-        ac.addAction(UIAlertAction(title: "Выйти", style: .destructive, handler: { (_) in
-            self.view.window?.rootViewController = AuthViewController()
+        ac.addAction(UIAlertAction(title: "Выйти", style: .destructive, handler: { _ in 
+            self.signOut()
         }))
         present(ac, animated: true, completion: nil)
+    }
+    
+    func signOut() {
+        HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
+        UserDefaults.standard.setValue(false, forKey: "isAuth")
+        let authVC = AuthViewController()
+        self.view.window?.rootViewController = authVC
     }
 }
 

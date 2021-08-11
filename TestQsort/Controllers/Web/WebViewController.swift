@@ -37,16 +37,14 @@ extension WebViewController {
     private func configure() {
         webView = WKWebView(frame: view.bounds)
         view.addSubview(webView)
-        
-        webView.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
-        }
     }
     
     func dismissViewController() {
         DispatchQueue.main.async {
             self.dismiss(animated: true) {
-                self.mainVC?.testUserData = self.testUserData!
+                guard self.testUserData != nil else { return }
+                let mainTabVC = MainTabBarController()
+                UIApplication.shared.windows.first?.rootViewController = mainTabVC
             }
         }
     }
@@ -56,6 +54,9 @@ extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request = navigationAction.request
         self.instagramApi?.getTestUserIDAndToken(request: request) { [weak self] (instagramTestUser) in
+            UserDefaults.standard.setValue(instagramTestUser.access_token, forKey: "token")
+            UserDefaults.standard.setValue(instagramTestUser.user_id, forKey: "user_id")
+            UserDefaults.standard.setValue(true, forKey: "isAuth")
             self?.testUserData = instagramTestUser
             self?.dismissViewController()
         }

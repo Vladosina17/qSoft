@@ -15,8 +15,6 @@ class AuthViewController: UIViewController {
     
     var instagramApi = InstagramApi.shared
     var testUserData = InstagramTestUser(access_token: "", user_id: 0)
-    var instagramUser: InstagramUser?
-    var signedIn = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +24,7 @@ class AuthViewController: UIViewController {
 
 extension AuthViewController {
     private func configure() {
-        view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         titleLabel.textColor = .black
@@ -61,18 +59,7 @@ extension AuthViewController {
     }
     
     @objc func tapSignInButton() {
-        if testUserData.user_id == 0 {
-            presentWebViewController()
-        } else {
-            self.instagramApi.getInstagramUser(testUserData: self.testUserData) { [weak self] (user) in
-                self?.instagramUser = user
-                self?.signedIn = true
-                DispatchQueue.main.async {
-                    self?.presentAlert()
-                }
-            }
-        }
-        
+        presentWebViewController()
     }
     
     func presentWebViewController() {
@@ -81,11 +68,4 @@ extension AuthViewController {
         webVC.mainVC = self
         present(webVC, animated: true)
     }
-    
-    func presentAlert() {
-      let alert = UIAlertController(title: "Signed In:", message: "with account: @\(self.instagramUser!.username)", preferredStyle: UIAlertController.Style.alert)
-      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-      self.present(alert, animated: true)
-    }
-
 }

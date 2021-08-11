@@ -30,7 +30,7 @@ class InstagramApi {
     private init () {}
     
     func authorizeApp(completion: @escaping (_ url: URL?) -> Void ) {
-        let urlString = "\(BaseURL.displayApi.rawValue)\(Method.authorize.rawValue)?app_id=\(instagramAppID)&redirect_uri=\(redirectURIURLEncoded)&scope=user_profile,user_media&response_type=code"
+        let urlString = "\(BaseURL.displayApi.rawValue)\(Method.authorize.rawValue)?app_id=\(instagramAppID)&redirect_uri=\(redirectURI)&scope=user_profile,user_media&response_type=code"
         let request = URLRequest(url: URL(string: urlString)!)
         
         let session = URLSession.shared
@@ -43,6 +43,7 @@ class InstagramApi {
         task.resume()
     }
     
+    //MARK: - Token
     private func getTokenFromCallbackURL(request: URLRequest) -> String? {
         let requestURLString = (request.url?.absoluteString)! as String
         if requestURLString.starts(with: "\(redirectURI)?code=") {
@@ -133,8 +134,15 @@ class InstagramApi {
         dataTask.resume()
     }
     
-    func getInstagramUser(testUserData: InstagramTestUser, completion: @escaping (InstagramUser) -> Void) {
-        let urlString = "\(BaseURL.graphApi.rawValue)\(testUserData.user_id)?fields=id,username&access_token=\(testUserData.access_token)"
+    
+    //MARK:- User
+    
+    func getInstagramUser(completion: @escaping (InstagramUser) -> Void) {
+        
+        guard let token = UserDefaults.standard.string(forKey: "token") else { return  }
+        let userId = UserDefaults.standard.integer(forKey: "user_id")
+        
+        let urlString = "\(BaseURL.graphApi.rawValue)\(userId)?fields=id,username&access_token=\(token)"
         let request = URLRequest(url: URL(string: urlString)!)
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request, completionHandler: {(data, response, error) in
@@ -153,5 +161,4 @@ class InstagramApi {
         })
         dataTask.resume()
     }
-    
 }
