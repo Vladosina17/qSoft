@@ -11,10 +11,10 @@ class InstagramApi {
     
     static let shared = InstagramApi()
     
-    private let instagramAppID = "1026402764840313"
+    private let instagramAppID = "530444611372217"
     private let redirectURIURLEncoded = "https%3A%2F%2Fwww.google.com%2F"
-    private let redirectURI = " https://www.google.com/"
-    private let app_secret = "77019c4bceb4486985b3202524142138"
+    private let redirectURI = "https://www.google.com/"
+    private let app_secret = "cfa4b0dd56643e4d3e2dac2bf922b181"
     private let boundary = "boundary=\(NSUUID().uuidString)"
     
     private enum BaseURL: String {
