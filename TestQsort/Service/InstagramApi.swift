@@ -169,7 +169,7 @@ class InstagramApi {
         
         guard let token = UserDefaults.standard.string(forKey: "token") else { return  }
         
-        let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type&access_token=\(token)"
+        let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type&access_token=\(token)&limit=5"
         let request = URLRequest(url: URL(string: urlString)!)
         let session = URLSession.shared
         

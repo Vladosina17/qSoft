@@ -10,6 +10,8 @@ import UIKit
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
      
     var collectionView: UICollectionView!
+    let refreshControl = UIRefreshControl()
+    
     var instagramUserToken: InstagramTestUser?
     let instagramApi = InstagramApi.shared
     var instagramUser: InstagramUser?
@@ -29,6 +31,7 @@ extension MainViewController {
     private func configure() {
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выйти", style: .plain, target: self, action: #selector(tapLogOut))
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     }
     
     private func setupCollectionView() {
@@ -44,6 +47,7 @@ extension MainViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.reuseId)
+        collectionView.refreshControl = refreshControl
         
         view.addSubview(collectionView)
     }
@@ -81,6 +85,11 @@ extension MainViewController {
         UserDefaults.standard.setValue(false, forKey: "isAuth")
         let authVC = AuthViewController()
         self.view.window?.rootViewController = authVC
+    }
+    
+    @objc func refresh() {
+        getMedia()
+        refreshControl.endRefreshing()
     }
 }
 

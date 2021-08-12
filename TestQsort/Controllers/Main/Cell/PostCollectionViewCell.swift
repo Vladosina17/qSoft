@@ -34,10 +34,10 @@ class PostCollectionViewCell: UICollectionViewCell {
         }
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        photoImageView.image = nil
-//    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photoImageView.image = nil
+    }
 }
 
 
