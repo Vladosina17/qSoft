@@ -9,14 +9,10 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    //
-    var instagramUser: InstagramTestUser?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let mainViewController = MainViewController()
-        //
-        mainViewController.instagramUserToken = instagramUser
         tabBar.tintColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
         let peopleImg = UIImage(systemName: "person.2")!
         viewControllers = [generateNavigationController(rootViewController: mainViewController, title: "Лента", image: peopleImg)]

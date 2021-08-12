@@ -10,14 +10,18 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
+    let isntagramApi = InstagramApi.shared
+    var mediaId: String?
+    
     let photoImageView = UIImageView()
     let nameLabel = UILabel()
-    let likeLabel = UILabel()
+    let commentLabel = UILabel()
     let dateLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        setDetail(mediaId: mediaId)
     }
     
 }
@@ -31,29 +35,40 @@ extension DetailViewController {
         nameLabel.font = UIFont.systemFont(ofSize: 18)
         nameLabel.textColor = .black
         nameLabel.textAlignment = .left
-        nameLabel.text = "Vladosina17"
         
-        likeLabel.font = UIFont.systemFont(ofSize: 14)
-        likeLabel.textColor = .gray
-        likeLabel.textAlignment = .left
-        likeLabel.text = "Нравится: 225"
+        commentLabel.font = UIFont.systemFont(ofSize: 14)
+        commentLabel.textColor = .gray
+        commentLabel.textAlignment = .left
         
         dateLabel.font = UIFont.systemFont(ofSize: 14)
         dateLabel.textColor = .gray
         dateLabel.textAlignment = .left
-        dateLabel.text = "10 декабря 2020г."
             
         setupConstraints()
+    }
+    
+    func setDetail(mediaId: String?) {
+        guard let id = mediaId else { return }
+        isntagramApi.getMedia(mediaId: id) { [weak self] media in
+            let url = URL(string: media.media_url)
+            DispatchQueue.main.async {
+                self?.photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
+                self?.nameLabel.text = media.username.capitalized
+                self?.dateLabel.text = media.timestamp
+                self?.commentLabel.text = media.caption
+            }
+        }
     }
     
     private func setupConstraints() {
         view.addSubview(photoImageView)
         view.addSubview(nameLabel)
-        view.addSubview(likeLabel)
+        view.addSubview(commentLabel)
         view.addSubview(dateLabel)
         
         photoImageView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().inset(88)
             make.height.equalTo(view.snp.width)
         }
         
@@ -63,14 +78,14 @@ extension DetailViewController {
             make.height.equalTo(20)
         }
         
-        likeLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
+        commentLabel.snp.makeConstraints { make in
+            make.top.equalTo(dateLabel.snp.bottom).offset(10)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(20)
         }
         
         dateLabel.snp.makeConstraints { make in
-            make.top.equalTo(likeLabel.snp.bottom).offset(10)
+            make.top.equalTo(nameLabel.snp.bottom).offset(10)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(20)
         }

@@ -7,14 +7,13 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class PostCollectionViewCell: UICollectionViewCell {
     
     static var reuseId: String = "MainCell"
-    
+    let instagramApi = InstagramApi.shared
     let photoImageView = UIImageView()
-    let nameLabel = UILabel()
-    let likeLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +24,20 @@ class PostCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setCell(mediaId: String) {
+        instagramApi.getMedia(mediaId: mediaId) { [weak self] media in
+            let url = URL(string: media.media_url)
+            DispatchQueue.main.async {
+                self?.photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
+            }
+        }
+    }
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        photoImageView.image = nil
+//    }
 }
 
 
@@ -32,41 +45,16 @@ extension PostCollectionViewCell {
     
     private func configure() {
         photoImageView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        nameLabel.font = UIFont.systemFont(ofSize: 18)
-        nameLabel.textColor = .black
-        nameLabel.textAlignment = .left
-        nameLabel.text = "Vladosina17"
-        
-        likeLabel.font = UIFont.systemFont(ofSize: 14)
-        likeLabel.textColor = .gray
-        likeLabel.textAlignment = .left
-        likeLabel.text = "Нравится: 225"
-        
         setupConstraints()
     }
     
     private func setupConstraints() {
         
         addSubview(photoImageView)
-        addSubview(nameLabel)
-        addSubview(likeLabel)
         
         photoImageView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.height.equalTo(contentView.snp.width)
-        }
-        
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(photoImageView.snp.bottom).offset(20)
-            make.left.right.equalToSuperview().inset(10)
-            make.height.equalTo(20)
-        }
-        
-        likeLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom).offset(10)
-            make.left.right.equalToSuperview().inset(10)
-            make.height.equalTo(15)
         }
     }
 }

@@ -4,7 +4,7 @@
 target 'TestQsort' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
- pod 'Kingfisher'
+ pod 'Kingfisher', '~> 7.0'
  pod 'SnapKit'
  pod 'Alamofire'
   # Pods for TestQsort

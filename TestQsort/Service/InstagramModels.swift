@@ -25,6 +25,7 @@ struct Feed: Codable {
 struct MediaData: Codable {
     var id: String
     var caption: String?
+    var media_type: String
 }
 struct PagingData: Codable {
     var cursors: CursorData
@@ -40,6 +41,7 @@ struct InstagramMedia: Codable {
     var media_url: String
     var username: String
     var timestamp: String
+    var caption: String?
 }
 enum MediaType: String,Codable {
     case IMAGE

@@ -13,7 +13,6 @@
 		480E910F26C12A72000421A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 480E910D26C12A72000421A1 /* LaunchScreen.storyboard */; };
 		480E911726C13092000421A1 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911626C13092000421A1 /* AuthViewController.swift */; };
 		480E911B26C135B6000421A1 /* UITextField + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911A26C135B6000421A1 /* UITextField + Extension.swift */; };
-		480E911E26C13647000421A1 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911D26C13647000421A1 /* BaseTextField.swift */; };
 		480E912026C13E2B000421A1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E911F26C13E2B000421A1 /* MainViewController.swift */; };
 		480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912126C140DA000421A1 /* MainTabBarController.swift */; };
 		480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */; };
@@ -34,7 +33,6 @@
 		480E911026C12A72000421A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		480E911626C13092000421A1 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		480E911A26C135B6000421A1 /* UITextField + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + Extension.swift"; sourceTree = "<group>"; };
-		480E911D26C13647000421A1 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		480E911F26C13E2B000421A1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		480E912126C140DA000421A1 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 		480E911C26C13617000421A1 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				480E911D26C13647000421A1 /* BaseTextField.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -311,7 +308,6 @@
 				480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */,
 				480E911726C13092000421A1 /* AuthViewController.swift in Sources */,
 				480E910326C12A6B000421A1 /* AppDelegate.swift in Sources */,
-				480E911E26C13647000421A1 /* BaseTextField.swift in Sources */,
 				480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */,
 				480E913326C276DE000421A1 /* WebViewController.swift in Sources */,
 				480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */,
