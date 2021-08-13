@@ -113,4 +113,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         detailVC.mediaId = mediaData?.data[indexPath.row].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let position = scrollView.contentOffset.y
+//        if position > (collectionView.contentSize.height - 100 - scrollView.frame.height) {
+//            print("fetch more dara...")
+//        }
+//    }
 }

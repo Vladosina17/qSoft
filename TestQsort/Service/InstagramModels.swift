@@ -26,6 +26,7 @@ struct MediaData: Codable {
     var id: String
     var caption: String?
     var media_type: String
+    var media_url: String
 }
 struct PagingData: Codable {
     var cursors: CursorData
