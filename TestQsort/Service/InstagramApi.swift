@@ -31,12 +31,13 @@ class InstagramApi {
     
     func authorizeApp(completion: @escaping (_ url: URL?) -> Void ) {
         let urlString = "\(BaseURL.displayApi.rawValue)\(Method.authorize.rawValue)?app_id=\(instagramAppID)&redirect_uri=\(redirectURI)&scope=user_profile,user_media&response_type=code"
-        let request = URLRequest(url: URL(string: urlString)!)
+        
+        guard let url = URL(string: urlString) else { return }
+        let request = URLRequest(url: url)
         
         let session = URLSession.shared
         let task = session.dataTask(with: request, completionHandler: { data, response, error in
             if let response = response {
-                print(response)
                 completion(response.url)
             }
         })
@@ -48,13 +49,13 @@ class InstagramApi {
         let requestURLString = (request.url?.absoluteString)! as String
         if requestURLString.starts(with: "\(redirectURI)?code=") {
             
-            print("Response uri:",requestURLString)
             if let range = requestURLString.range(of: "\(redirectURI)?code=") {
                 return String(requestURLString[range.upperBound...].dropLast(2))
             }
         }
         return nil
     }
+    
     
     private func getFormBody(_ parameters: [[String : String]], _ boundary: String) -> Data {
         var body = ""
@@ -66,8 +67,9 @@ class InstagramApi {
             if let filename = param["fileName"] {
                 let contentType = param["content-type"]!
                 var fileContent: String = ""
-                do { fileContent = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)}
-                catch {
+                do {
+                    fileContent = try String(contentsOfFile: filename, encoding: String.Encoding.utf8)
+                } catch {
                     print(error)
                 }
                 if (error != nil) {
@@ -80,8 +82,10 @@ class InstagramApi {
                 body += "\r\n\r\n\(paramValue)"
             }
         }
+        
         return body.data(using: .utf8)!
     }
+    
     
     func getTestUserIDAndToken(request: URLRequest, completion: @escaping (InstagramTestUser) -> Void){
         guard let authToken = getTokenFromCallbackURL(request: request) else {
@@ -112,6 +116,7 @@ class InstagramApi {
                 "value": authToken
             ]
         ]
+        
         var request = URLRequest(url: URL(string: BaseURL.displayApi.rawValue + Method.access_token.rawValue)!)
         let postData = getFormBody(parameters, boundary)
         request.httpMethod = "POST"
@@ -124,7 +129,6 @@ class InstagramApi {
             } else {
                 do {
                     let jsonData = try JSONDecoder().decode(InstagramTestUser.self, from: data!)
-                    print(jsonData)
                     completion(jsonData)
                 } catch let error as NSError {
                     print(error)
@@ -143,7 +147,8 @@ class InstagramApi {
         let userId = UserDefaults.standard.integer(forKey: "user_id")
         
         let urlString = "\(BaseURL.graphApi.rawValue)\(userId)?fields=id,username&access_token=\(token)"
-        let request = URLRequest(url: URL(string: urlString)!)
+        guard let url = URL(string: urlString) else { return }
+        let request = URLRequest(url: url)
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request, completionHandler: {(data, response, error) in
             if (error != nil) {
@@ -169,17 +174,32 @@ class InstagramApi {
         
         guard let token = UserDefaults.standard.string(forKey: "token") else { return }
         
-        let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type,media_url&access_token=\(token)&limit=5"
-        let request = URLRequest(url: URL(string: urlString)!)
+        let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type,media_url,timestamp&access_token=\(token)&limit=5"
+        guard let url = URL(string: urlString) else { return }
+        let request = URLRequest(url: url)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request, completionHandler: { data, response, error in
-            if let response = response {
-                print(response)
-            }
             do {
                 let jsonData = try JSONDecoder().decode(Feed.self, from: data!)
-                print(jsonData)
+                completion(jsonData)
+            } catch let error as NSError {
+                print(error)
+            }
+        })
+        task.resume()
+    }
+    
+    func getPoginationMediaData(next: String?, completion: @escaping (Feed) -> Void) {
+        guard let urlString = next, let url = URL(string: urlString)  else { return }
+        
+        let request = URLRequest(url: url)
+        let session = URLSession.shared
+        
+        let task = session.dataTask(with: request, completionHandler: { data, response, error in
+            
+            do {
+                let jsonData = try JSONDecoder().decode(Feed.self, from: data!)
                 completion(jsonData)
             } catch let error as NSError {
                 print(error)
@@ -193,14 +213,11 @@ class InstagramApi {
         guard let token = UserDefaults.standard.string(forKey: "token") else { return }
         
         let urlString = "\(BaseURL.graphApi.rawValue + mediaId)?fields=id,media_type,media_url,username,timestamp,caption&access_token=\(token)"
-        let request = URLRequest(url: URL(string: urlString)!)
+        guard let url = URL(string: urlString) else { return }
+        let request = URLRequest(url: url)
         let session = URLSession.shared
         
         let task = session.dataTask(with: request) { data, response, error in
-            if let response = response {
-                print(response)
-            }
-            
             do {
                 let jsonData = try JSONDecoder().decode(InstagramMedia.self, from: data!)
                 print(jsonData)
@@ -211,52 +228,4 @@ class InstagramApi {
         }
         task.resume()
     }
-    
-    
-//    //test
-//    func getMediaData2() -> Feed? {
-//        var feed: Feed?
-//        if let token = UserDefaults.standard.string(forKey: "token") {
-//            let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type&access_token=\(token)&limit=5"
-//            let request = URLRequest(url: URL(string: urlString)!)
-//            let session = URLSession.shared
-//
-//            let task = session.dataTask(with: request) { data, response, error in
-//                do  {
-//                    let jsonData = try JSONDecoder().decode(Feed.self, from: data!)
-//                    print("jsonData-----GET MEDIA 2 \(jsonData)")
-//                    feed = jsonData
-//                } catch let error as NSError {
-//                    print(error)
-//                }
-//            }
-//            task.resume()
-//        }
-//        return feed
-//    }
-//
-//    func getMedia2(mediaId: String) -> InstagramMedia? {
-//        var instaMedia: InstagramMedia?
-//
-//        if  let token = UserDefaults.standard.string(forKey: "token") {
-//            let urlString = "\(BaseURL.graphApi.rawValue + mediaId)?fields=id,media_type,media_url,username,timestamp,caption&access_token=\(token)"
-//            let request = URLRequest(url: URL(string: urlString)!)
-//            let session = URLSession.shared
-//
-//            let task = session.dataTask(with: request) { data, response, error in
-//                do  {
-//                    let jsonData = try JSONDecoder().decode(InstagramMedia.self, from: data!)
-//                    instaMedia = jsonData
-//
-//                } catch let error as NSError {
-//                    print(error)
-//                }
-//            }
-//            task.resume()
-//        }
-//        return instaMedia
-//    }
-    
-    
-    
 }

@@ -12,10 +12,13 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var collectionView: UICollectionView!
     let refreshControl = UIRefreshControl()
     
-    var instagramUserToken: InstagramTestUser?
     let instagramApi = InstagramApi.shared
     var instagramUser: InstagramUser?
     var mediaData: Feed?
+    
+    var paginationURL: String?
+    
+    var isDataLoading: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +57,6 @@ extension MainViewController {
     
     private func getDataUser() {
         instagramApi.getInstagramUser{ [weak self] (user) in
-            self?.instagramUser = user
             DispatchQueue.main.async {
                 self?.title = user.username
             }
@@ -64,10 +66,16 @@ extension MainViewController {
     private func getMedia() {
         instagramApi.getMediaData { [weak self] (data) in
             self?.mediaData = data
+            self?.paginationURL = data.paging.next
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
             }
         }
+    }
+    
+    @objc func refresh() {
+        getMedia()
+        refreshControl.endRefreshing()
     }
     
 //MARK: - Actions
@@ -86,25 +94,21 @@ extension MainViewController {
         let authVC = AuthViewController()
         self.view.window?.rootViewController = authVC
     }
-    
-    @objc func refresh() {
-        getMedia()
-        refreshControl.endRefreshing()
-    }
 }
 
 
 //MARK: - Delegates
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mediaData?.data.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.reuseId, for: indexPath) as? PostCollectionViewCell,
-              let mediaId = mediaData?.data[indexPath.row].id else { return PostCollectionViewCell()}
-        cell.setCell(mediaId: mediaId)
+              let media = mediaData?.data[indexPath.row] else { return PostCollectionViewCell()}
+        cell.setCell(media: media)
         return cell
     }
     
@@ -114,10 +118,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let position = scrollView.contentOffset.y
-//        if position > (collectionView.contentSize.height - 100 - scrollView.frame.height) {
-//            print("fetch more dara...")
-//        }
-//    }
+    //Pagination
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isDataLoading = false
+    }
+        
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        let position = scrollView.contentOffset.y
+        if (position + collectionView.frame.size.height) >= collectionView.contentSize.height - 200 {
+            if !isDataLoading {
+                isDataLoading = true
+                instagramApi.getPoginationMediaData(next: paginationURL) { [weak self] media in
+                    self?.mediaData?.data.append(contentsOf: media.data)
+                    self?.paginationURL = media.paging.next
+                    DispatchQueue.main.async {
+                        self?.collectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
 }

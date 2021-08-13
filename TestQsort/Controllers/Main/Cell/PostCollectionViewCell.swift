@@ -25,13 +25,9 @@ class PostCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setCell(mediaId: String) {
-        instagramApi.getMedia(mediaId: mediaId) { [weak self] media in
-            let url = URL(string: media.media_url)
-            DispatchQueue.main.async {
-                self?.photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
-            }
-        }
+    func setCell(media: MediaData) {
+        let url = URL(string: media.media_url)
+        photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
     }
     
     override func prepareForReuse() {

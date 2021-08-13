@@ -44,7 +44,6 @@ extension AuthViewController {
     }
     
     private func setupConstraints() {
-        
         titleLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(signInButton.snp.top).offset(-30)

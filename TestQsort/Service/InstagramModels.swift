@@ -27,7 +27,9 @@ struct MediaData: Codable {
     var caption: String?
     var media_type: String
     var media_url: String
+    var timestamp: String
 }
+
 struct PagingData: Codable {
     var cursors: CursorData
     var next: String?
@@ -36,6 +38,7 @@ struct CursorData: Codable {
     var before: String
     var after: String
 }
+
 struct InstagramMedia: Codable {
     var id: String
     var media_type: MediaType

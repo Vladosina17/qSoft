@@ -23,7 +23,6 @@ class DetailViewController: UIViewController {
         configure()
         setDetail(mediaId: mediaId)
     }
-    
 }
 
 extension DetailViewController {
