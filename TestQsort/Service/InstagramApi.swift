@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Locksmith
 
 class InstagramApi {
     
@@ -27,7 +28,7 @@ class InstagramApi {
         case access_token = "oauth/access_token"
     }
     
-    private init () {}
+    private init() {}
     
     func authorizeApp(completion: @escaping (_ url: URL?) -> Void ) {
         let urlString = "\(BaseURL.displayApi.rawValue)\(Method.authorize.rawValue)?app_id=\(instagramAppID)&redirect_uri=\(redirectURI)&scope=user_profile,user_media&response_type=code"
@@ -143,8 +144,7 @@ class InstagramApi {
     
     func getInstagramUser(completion: @escaping (InstagramUser) -> Void) {
         
-        guard let token = UserDefaults.standard.string(forKey: "token") else { return  }
-        let userId = UserDefaults.standard.integer(forKey: "user_id")
+        guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"], let userId = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["user_id"] else { return }
         
         let urlString = "\(BaseURL.graphApi.rawValue)\(userId)?fields=id,username&access_token=\(token)"
         guard let url = URL(string: urlString) else { return }
@@ -172,7 +172,7 @@ class InstagramApi {
     
     func getMediaData(completion: @escaping (Feed) -> Void) {
         
-        guard let token = UserDefaults.standard.string(forKey: "token") else { return }
+        guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] else { return }
         
         let urlString = "\(BaseURL.graphApi.rawValue)me/media?fields=id,caption,media_type,media_url,timestamp&access_token=\(token)&limit=5"
         guard let url = URL(string: urlString) else { return }
@@ -209,8 +209,8 @@ class InstagramApi {
     }
     
     func getMedia(mediaId: String, completion: @escaping (InstagramMedia) -> Void) {
-        
-        guard let token = UserDefaults.standard.string(forKey: "token") else { return }
+    
+        guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] else { return }
         
         let urlString = "\(BaseURL.graphApi.rawValue + mediaId)?fields=id,media_type,media_url,username,timestamp,caption&access_token=\(token)"
         guard let url = URL(string: urlString) else { return }
@@ -220,7 +220,6 @@ class InstagramApi {
         let task = session.dataTask(with: request) { data, response, error in
             do {
                 let jsonData = try JSONDecoder().decode(InstagramMedia.self, from: data!)
-                print(jsonData)
                 completion(jsonData)
             } catch let error as NSError {
                 print(error)
@@ -229,7 +228,16 @@ class InstagramApi {
         task.resume()
     }
     
-    func logoutUser() {
-        
-    }
+//    func logout() {
+//        guard let userId = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["user_id"] else { return }
+//        let urlString = "\(BaseURL.graphApi.rawValue)/\(userId)/permissions"
+//        guard let url = URL(string: urlString) else { return }
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "DELETE"
+//        let session = URLSession.shared
+//
+//        let task = session.dataTask(with: request)
+//        task.resume()
+//
+//    }
 }

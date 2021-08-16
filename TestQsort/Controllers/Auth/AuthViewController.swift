@@ -63,7 +63,6 @@ extension AuthViewController {
     
     func presentWebViewController() {
         let webVC = WebViewController()
-        webVC.instagramApi = self.instagramApi
         webVC.mainVC = self
         present(webVC, animated: true)
     }

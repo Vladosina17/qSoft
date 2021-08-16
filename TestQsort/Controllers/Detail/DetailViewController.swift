@@ -14,9 +14,9 @@ class DetailViewController: UIViewController {
     var mediaId: String?
     
     let photoImageView = UIImageView()
-    let nameLabel = UILabel()
-    let commentLabel = UILabel()
-    let dateLabel = UILabel()
+    let nameLabel = UILabel(fontSize: 18, color: .black)
+    let commentLabel = UILabel(fontSize: 14, color: .gray)
+    let dateLabel = UILabel(fontSize: 14, color: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +28,7 @@ class DetailViewController: UIViewController {
 extension DetailViewController {
     private func configure() {
         view.backgroundColor = .white
-        
-        nameLabel.font = UIFont.systemFont(ofSize: 18)
-        nameLabel.textColor = .black
-        nameLabel.textAlignment = .left
-        
-        commentLabel.font = UIFont.systemFont(ofSize: 14)
-        commentLabel.textColor = .gray
-        commentLabel.textAlignment = .left
-        
-        dateLabel.font = UIFont.systemFont(ofSize: 14)
-        dateLabel.textColor = .gray
-        dateLabel.textAlignment = .left
-            
+        photoImageView.contentMode = .scaleAspectFit
         setupConstraints()
     }
     
@@ -49,7 +37,7 @@ extension DetailViewController {
         isntagramApi.getMedia(mediaId: id) { [weak self] media in
             let url = URL(string: media.media_url)
             DispatchQueue.main.async {
-                self?.photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+                self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
                 self?.nameLabel.text = media.username.capitalized
                 self?.dateLabel.text = media.timestamp
                 self?.commentLabel.text = media.caption

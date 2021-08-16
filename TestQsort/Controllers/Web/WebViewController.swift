@@ -8,24 +8,21 @@
 import Foundation
 import WebKit
 import SnapKit
+import Locksmith
 
 class WebViewController: UIViewController {
     
-    var instagramApi: InstagramApi?
+    var instagramApi = InstagramApi.shared
     var testUserData: InstagramTestUser?
     var mainVC: AuthViewController?
     
-    var webView: WKWebView! {
-        didSet {
-            webView.navigationDelegate = self
-        }
-    }
+    var webView: WKWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         
-        instagramApi?.authorizeApp { (url) in
+        instagramApi.authorizeApp { (url) in
             DispatchQueue.main.async {
                 self.webView.load(URLRequest(url: url!))
             }
@@ -36,6 +33,7 @@ class WebViewController: UIViewController {
 extension WebViewController {
     private func configure() {
         webView = WKWebView(frame: view.bounds)
+        webView.navigationDelegate = self
         view.addSubview(webView)
     }
     
@@ -53,10 +51,15 @@ extension WebViewController {
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request = navigationAction.request
-        self.instagramApi?.getTestUserIDAndToken(request: request) { [weak self] (instagramTestUser) in
-            UserDefaults.standard.setValue(instagramTestUser.access_token, forKey: "token")
-            UserDefaults.standard.setValue(instagramTestUser.user_id, forKey: "user_id")
+        self.instagramApi.getTestUserIDAndToken(request: request) { [weak self] (instagramTestUser) in
             UserDefaults.standard.setValue(true, forKey: "isAuth")
+            
+            do {
+                try Locksmith.saveData(data: ["token" : instagramTestUser.access_token, "user_id" : instagramTestUser.user_id], forUserAccount: "Auth")
+            } catch {
+                print("Unabled to save data")
+            }
+            
             self?.testUserData = instagramTestUser
             self?.dismissViewController()
         }

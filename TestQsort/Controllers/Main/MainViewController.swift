@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Locksmith
 
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
      
@@ -13,12 +14,12 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     let refreshControl = UIRefreshControl()
     
     let instagramApi = InstagramApi.shared
-    var instagramUser: InstagramUser?
     var mediaData: Feed?
-    
     var paginationURL: String?
     
     var isDataLoading: Bool = false
+    
+    let auth = Locksmith.loadDataForUserAccount(userAccount: "token")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +92,13 @@ extension MainViewController {
     func signOut() {
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
         UserDefaults.standard.setValue(false, forKey: "isAuth")
+        
+        do {
+            try  Locksmith.deleteDataForUserAccount(userAccount: "Auth")
+        } catch {
+            print("Данные не найдены")
+        }
+       
         let authVC = AuthViewController()
         self.view.window?.rootViewController = authVC
     }
