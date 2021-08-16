@@ -228,4 +228,8 @@ class InstagramApi {
         }
         task.resume()
     }
+    
+    func logoutUser() {
+        
+    }
 }

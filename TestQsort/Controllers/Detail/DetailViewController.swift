@@ -29,8 +29,6 @@ extension DetailViewController {
     private func configure() {
         view.backgroundColor = .white
         
-        photoImageView.backgroundColor = .lightGray
-        
         nameLabel.font = UIFont.systemFont(ofSize: 18)
         nameLabel.textColor = .black
         nameLabel.textAlignment = .left
@@ -51,7 +49,7 @@ extension DetailViewController {
         isntagramApi.getMedia(mediaId: id) { [weak self] media in
             let url = URL(string: media.media_url)
             DispatchQueue.main.async {
-                self?.photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
+                self?.photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
                 self?.nameLabel.text = media.username.capitalized
                 self?.dateLabel.text = media.timestamp
                 self?.commentLabel.text = media.caption

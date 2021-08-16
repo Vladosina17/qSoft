@@ -27,7 +27,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     
     func setCell(media: MediaData) {
         let url = URL(string: media.media_url)
-        photoImageView.kf.setImage(with: url, options : [.transition (. fade ( 0.2 ))])
+        photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
     }
     
     override func prepareForReuse() {
