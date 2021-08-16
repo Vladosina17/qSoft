@@ -7,6 +7,8 @@ target 'TestQsort' do
  pod 'Kingfisher', '~> 7.0'
  pod 'SnapKit'
  pod 'Alamofire'
+ pod 'Locksmith'
+
   # Pods for TestQsort
 
 end
