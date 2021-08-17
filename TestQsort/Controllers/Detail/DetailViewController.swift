@@ -10,13 +10,14 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
-    let isntagramApi = InstagramApi.shared
-    var mediaId: String?
+    var dataFetcherService = DataFetcherService.shared
     
     let photoImageView = UIImageView()
     let nameLabel = UILabel(fontSize: 18, color: .black)
     let commentLabel = UILabel(fontSize: 14, color: .gray)
     let dateLabel = UILabel(fontSize: 14, color: .gray)
+    
+    var mediaId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +35,18 @@ extension DetailViewController {
     
     func setDetail(mediaId: String?) {
         guard let id = mediaId else { return }
-        isntagramApi.getMedia(mediaId: id) { [weak self] media in
-            let url = URL(string: media.media_url)
-            DispatchQueue.main.async {
-                self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
-                self?.nameLabel.text = media.username.capitalized
-                self?.dateLabel.text = media.timestamp
-                self?.commentLabel.text = media.caption
+        dataFetcherService.getMedia(mediaId: id) { [weak self] result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    guard let data = data, let url = URL(string: data.media_url)  else {return}
+                    self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+                    self?.nameLabel.text = data.username.capitalized
+                    self?.dateLabel.text = data.timestamp
+                    self?.commentLabel.text = data.caption
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

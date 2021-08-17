@@ -12,9 +12,9 @@ import Locksmith
 
 class WebViewController: UIViewController {
     
-    var instagramApi = InstagramApi.shared
     var testUserData: InstagramTestUser?
     var mainVC: AuthViewController?
+    var authFetcherService = AuthFetcherService.shared
     
     var webView: WKWebView!
     
@@ -22,10 +22,9 @@ class WebViewController: UIViewController {
         super.viewDidLoad()
         configure()
         
-        instagramApi.authorizeApp { (url) in
-            DispatchQueue.main.async {
-                self.webView.load(URLRequest(url: url!))
-            }
+        authFetcherService.authorizeApp { [weak self] url in
+            guard let url = url else { return }
+            self?.webView.load(URLRequest(url: url))
         }
     }
 }
@@ -51,17 +50,22 @@ extension WebViewController {
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let request = navigationAction.request
-        self.instagramApi.getTestUserIDAndToken(request: request) { [weak self] (instagramTestUser) in
-            UserDefaults.standard.setValue(true, forKey: "isAuth")
-            
-            do {
-                try Locksmith.saveData(data: ["token" : instagramTestUser.access_token, "user_id" : instagramTestUser.user_id], forUserAccount: "Auth")
-            } catch {
-                print("Unabled to save data")
+        self.authFetcherService.getTestUserIDAndToken(request: request) { [weak self] result in
+            switch result {
+            case .success(let data):
+                UserDefaults.standard.setValue(true, forKey: "isAuth")
+                guard let testUser = data else { return }
+                do {
+                    try Locksmith.saveData(data: ["token" : testUser.access_token, "user_id" : testUser.user_id], forUserAccount: "Auth")
+                } catch {
+                    print("Unabled to save data")
+                }
+                self?.testUserData = testUser
+                self?.dismissViewController()
+                
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-            
-            self?.testUserData = instagramTestUser
-            self?.dismissViewController()
         }
         decisionHandler(WKNavigationActionPolicy.allow)
     }

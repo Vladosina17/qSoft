@@ -13,9 +13,6 @@ class AuthViewController: UIViewController {
     let titleLabel = UILabel()
     let signInButton = UIButton(type: .system)
     
-    var instagramApi = InstagramApi.shared
-    var testUserData = InstagramTestUser(access_token: "", user_id: 0)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()

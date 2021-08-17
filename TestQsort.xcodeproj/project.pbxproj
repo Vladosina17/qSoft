@@ -17,7 +17,6 @@
 		480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */; };
 		480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E912926C162DE000421A1 /* DetailViewController.swift */; };
 		480E913326C276DE000421A1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913226C276DE000421A1 /* WebViewController.swift */; };
-		480E913526C29CCF000421A1 /* InstagramApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913426C29CCF000421A1 /* InstagramApi.swift */; };
 		480E913A26CA5C88000421A1 /* InstagramTestUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913926CA5C88000421A1 /* InstagramTestUser.swift */; };
 		480E913C26CA5CCB000421A1 /* InstagramUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913B26CA5CCB000421A1 /* InstagramUserModel.swift */; };
 		480E913E26CA5CE8000421A1 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E913D26CA5CE8000421A1 /* FeedModel.swift */; };
@@ -27,6 +26,14 @@
 		480E914826CA5DAC000421A1 /* InstagramMediaModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E914726CA5DAC000421A1 /* InstagramMediaModel.swift */; };
 		480E914A26CA5DC7000421A1 /* MediaTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480E914926CA5DC7000421A1 /* MediaTypeModel.swift */; };
 		485196CB26CA8B0C00FAC99F /* UILabel + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196CA26CA8B0C00FAC99F /* UILabel + Extension.swift */; };
+		485196CD26CB8B2300FAC99F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196CC26CB8B2300FAC99F /* NetworkService.swift */; };
+		485196CF26CB978400FAC99F /* NetworkDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196CE26CB978400FAC99F /* NetworkDataFetcher.swift */; };
+		485196D126CB9D8500FAC99F /* DataFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D026CB9D8500FAC99F /* DataFetcherService.swift */; };
+		485196D426CBD61000FAC99F /* AuthParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D326CBD61000FAC99F /* AuthParam.swift */; };
+		485196D626CBD7D700FAC99F /* BaseUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D526CBD7D700FAC99F /* BaseUrl.swift */; };
+		485196D826CBD82100FAC99F /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D726CBD82100FAC99F /* Methods.swift */; };
+		485196DA26CBF3C500FAC99F /* AuthFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D926CBF3C400FAC99F /* AuthFetcherService.swift */; };
+		485196DC26CBFBFA00FAC99F /* Enpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196DB26CBFBFA00FAC99F /* Enpoints.swift */; };
 		C4E7971419CF33CD06EE72C5 /* Pods_TestQsort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +51,6 @@
 		480E912726C14DDE000421A1 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		480E912926C162DE000421A1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		480E913226C276DE000421A1 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		480E913426C29CCF000421A1 /* InstagramApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramApi.swift; sourceTree = "<group>"; };
 		480E913926CA5C88000421A1 /* InstagramTestUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramTestUser.swift; sourceTree = "<group>"; };
 		480E913B26CA5CCB000421A1 /* InstagramUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramUserModel.swift; sourceTree = "<group>"; };
 		480E913D26CA5CE8000421A1 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
@@ -54,6 +60,14 @@
 		480E914726CA5DAC000421A1 /* InstagramMediaModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramMediaModel.swift; sourceTree = "<group>"; };
 		480E914926CA5DC7000421A1 /* MediaTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTypeModel.swift; sourceTree = "<group>"; };
 		485196CA26CA8B0C00FAC99F /* UILabel + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extension.swift"; sourceTree = "<group>"; };
+		485196CC26CB8B2300FAC99F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		485196CE26CB978400FAC99F /* NetworkDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDataFetcher.swift; sourceTree = "<group>"; };
+		485196D026CB9D8500FAC99F /* DataFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcherService.swift; sourceTree = "<group>"; };
+		485196D326CBD61000FAC99F /* AuthParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthParam.swift; sourceTree = "<group>"; };
+		485196D526CBD7D700FAC99F /* BaseUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrl.swift; sourceTree = "<group>"; };
+		485196D726CBD82100FAC99F /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
+		485196D926CBF3C400FAC99F /* AuthFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFetcherService.swift; sourceTree = "<group>"; };
+		485196DB26CBFBFA00FAC99F /* Enpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enpoints.swift; sourceTree = "<group>"; };
 		815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestQsort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D801BA479D0CF4FBA4B5BC /* Pods-TestQsort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestQsort.debug.xcconfig"; path = "Target Support Files/Pods-TestQsort/Pods-TestQsort.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,7 +191,11 @@
 		480E912C26C26837000421A1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				480E913426C29CCF000421A1 /* InstagramApi.swift */,
+				485196D226CBD0B300FAC99F /* Enums */,
+				485196CC26CB8B2300FAC99F /* NetworkService.swift */,
+				485196CE26CB978400FAC99F /* NetworkDataFetcher.swift */,
+				485196D926CBF3C400FAC99F /* AuthFetcherService.swift */,
+				485196D026CB9D8500FAC99F /* DataFetcherService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -203,6 +221,17 @@
 				480E914926CA5DC7000421A1 /* MediaTypeModel.swift */,
 			);
 			path = "Models ";
+			sourceTree = "<group>";
+		};
+		485196D226CBD0B300FAC99F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				485196D326CBD61000FAC99F /* AuthParam.swift */,
+				485196D526CBD7D700FAC99F /* BaseUrl.swift */,
+				485196D726CBD82100FAC99F /* Methods.swift */,
+				485196DB26CBFBFA00FAC99F /* Enpoints.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		EA8AAA731079ECDAE83AB632 /* Frameworks */ = {
@@ -327,21 +356,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				480E912A26C162DE000421A1 /* DetailViewController.swift in Sources */,
+				485196DA26CBF3C500FAC99F /* AuthFetcherService.swift in Sources */,
+				485196D626CBD7D700FAC99F /* BaseUrl.swift in Sources */,
 				480E914226CA5D51000421A1 /* PagingDataModel.swift in Sources */,
 				480E911726C13092000421A1 /* AuthViewController.swift in Sources */,
 				480E910326C12A6B000421A1 /* AppDelegate.swift in Sources */,
+				485196CF26CB978400FAC99F /* NetworkDataFetcher.swift in Sources */,
 				480E913A26CA5C88000421A1 /* InstagramTestUser.swift in Sources */,
 				480E912826C14DDE000421A1 /* PostCollectionViewCell.swift in Sources */,
+				485196D826CBD82100FAC99F /* Methods.swift in Sources */,
 				485196CB26CA8B0C00FAC99F /* UILabel + Extension.swift in Sources */,
+				485196D126CB9D8500FAC99F /* DataFetcherService.swift in Sources */,
 				480E914026CA5D29000421A1 /* MediaDataModel.swift in Sources */,
 				480E913326C276DE000421A1 /* WebViewController.swift in Sources */,
 				480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */,
-				480E913526C29CCF000421A1 /* InstagramApi.swift in Sources */,
+				485196DC26CBFBFA00FAC99F /* Enpoints.swift in Sources */,
 				480E912026C13E2B000421A1 /* MainViewController.swift in Sources */,
 				480E910526C12A6B000421A1 /* SceneDelegate.swift in Sources */,
 				480E914426CA5D7E000421A1 /* CursorDataModel.swift in Sources */,
 				480E914826CA5DAC000421A1 /* InstagramMediaModel.swift in Sources */,
+				485196CD26CB8B2300FAC99F /* NetworkService.swift in Sources */,
 				480E914A26CA5DC7000421A1 /* MediaTypeModel.swift in Sources */,
+				485196D426CBD61000FAC99F /* AuthParam.swift in Sources */,
 				480E913E26CA5CE8000421A1 /* FeedModel.swift in Sources */,
 				480E913C26CA5CCB000421A1 /* InstagramUserModel.swift in Sources */,
 			);

@@ -13,13 +13,10 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     var collectionView: UICollectionView!
     let refreshControl = UIRefreshControl()
     
-    let instagramApi = InstagramApi.shared
+    let dataFetcherService = DataFetcherService.shared
     var mediaData: Feed?
     var paginationURL: String?
-    
     var isDataLoading: Bool = false
-    
-    let auth = Locksmith.loadDataForUserAccount(userAccount: "token")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,19 +54,31 @@ extension MainViewController {
     }
     
     private func getDataUser() {
-        instagramApi.getInstagramUser{ [weak self] (user) in
-            DispatchQueue.main.async {
-                self?.title = user.username
+        dataFetcherService.getInstagramUser { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let user = data else { return }
+                DispatchQueue.main.async {
+                    self?.title = user.username
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }
     
     private func getMedia() {
-        instagramApi.getMediaData { [weak self] (data) in
-            self?.mediaData = data
-            self?.paginationURL = data.paging.next
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+        dataFetcherService.getMediaData { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let data = data else { return }
+                self?.mediaData = data
+                self?.paginationURL = data.paging.next
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -92,13 +101,11 @@ extension MainViewController {
     func signOut() {
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
         UserDefaults.standard.setValue(false, forKey: "isAuth")
-        
         do {
             try  Locksmith.deleteDataForUserAccount(userAccount: "Auth")
         } catch {
             print("Данные не найдены")
         }
-       
         let authVC = AuthViewController()
         self.view.window?.rootViewController = authVC
     }
@@ -136,11 +143,17 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if (position + collectionView.frame.size.height) >= collectionView.contentSize.height - 200 {
             if !isDataLoading {
                 isDataLoading = true
-                instagramApi.getPoginationMediaData(next: paginationURL) { [weak self] media in
-                    self?.mediaData?.data.append(contentsOf: media.data)
-                    self?.paginationURL = media.paging.next
-                    DispatchQueue.main.async {
-                        self?.collectionView.reloadData()
+                dataFetcherService.getPoginationMediaData(next: paginationURL) { [weak self] result in
+                    switch result {
+                    case .success(let data):
+                        guard let media = data else { return }
+                        self?.mediaData?.data.append(contentsOf: media.data)
+                        self?.paginationURL = media.paging.next
+                        DispatchQueue.main.async {
+                            self?.collectionView.reloadData()
+                        }
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }

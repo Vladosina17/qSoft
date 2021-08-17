@@ -12,7 +12,7 @@ import Kingfisher
 class PostCollectionViewCell: UICollectionViewCell {
     
     static var reuseId: String = "MainCell"
-    let instagramApi = InstagramApi.shared
+    
     let photoImageView = UIImageView()
     
     override init(frame: CGRect) {
