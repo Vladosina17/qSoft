@@ -34,6 +34,7 @@
 		485196D826CBD82100FAC99F /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D726CBD82100FAC99F /* Methods.swift */; };
 		485196DA26CBF3C500FAC99F /* AuthFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D926CBF3C400FAC99F /* AuthFetcherService.swift */; };
 		485196DC26CBFBFA00FAC99F /* Enpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196DB26CBFBFA00FAC99F /* Enpoints.swift */; };
+		48B380D326CCDF60002AD749 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B380D226CCDF60002AD749 /* UIViewController + Extension.swift */; };
 		C4E7971419CF33CD06EE72C5 /* Pods_TestQsort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		485196D726CBD82100FAC99F /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
 		485196D926CBF3C400FAC99F /* AuthFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFetcherService.swift; sourceTree = "<group>"; };
 		485196DB26CBFBFA00FAC99F /* Enpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enpoints.swift; sourceTree = "<group>"; };
+		48B380D226CCDF60002AD749 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestQsort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D801BA479D0CF4FBA4B5BC /* Pods-TestQsort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestQsort.debug.xcconfig"; path = "Target Support Files/Pods-TestQsort/Pods-TestQsort.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				485196CA26CA8B0C00FAC99F /* UILabel + Extension.swift */,
+				48B380D226CCDF60002AD749 /* UIViewController + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				480E914A26CA5DC7000421A1 /* MediaTypeModel.swift in Sources */,
 				485196D426CBD61000FAC99F /* AuthParam.swift in Sources */,
 				480E913E26CA5CE8000421A1 /* FeedModel.swift in Sources */,
+				48B380D326CCDF60002AD749 /* UIViewController + Extension.swift in Sources */,
 				480E913C26CA5CCB000421A1 /* InstagramUserModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

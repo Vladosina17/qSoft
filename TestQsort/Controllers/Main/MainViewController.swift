@@ -62,7 +62,7 @@ extension MainViewController {
                     self?.title = user.username
                 }
             case .failure(let error):
-                print(error)
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
     }
@@ -78,7 +78,7 @@ extension MainViewController {
                     self?.collectionView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
     }
@@ -153,7 +153,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                             self?.collectionView.reloadData()
                         }
                     case .failure(let error):
-                        print(error)
+                        self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
                     }
                 }
             }

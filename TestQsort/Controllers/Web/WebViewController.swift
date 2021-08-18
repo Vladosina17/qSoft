@@ -64,7 +64,7 @@ extension WebViewController: WKNavigationDelegate {
                 self?.dismissViewController()
                 
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
         decisionHandler(WKNavigationActionPolicy.allow)

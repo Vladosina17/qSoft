@@ -46,7 +46,7 @@ extension DetailViewController {
                     self?.commentLabel.text = data.caption
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
             }
         }
     }
