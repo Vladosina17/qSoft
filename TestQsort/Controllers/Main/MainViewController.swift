@@ -37,9 +37,10 @@ extension MainViewController {
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        layout.itemSize = CGSize(width: view.bounds.width, height: view.bounds.width)
-        layout.minimumInteritemSpacing = 20
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: view.bounds.width / 2, height: view.bounds.width / 2)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
         layout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
@@ -140,7 +141,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let position = scrollView.contentOffset.y
-        if (position + collectionView.frame.size.height) >= collectionView.contentSize.height - 200 {
+        if (position + collectionView.frame.size.height) >= collectionView.contentSize.height {
             if !isDataLoading {
                 isDataLoading = true
                 dataFetcherService.getPoginationMediaData(next: paginationURL) { [weak self] result in

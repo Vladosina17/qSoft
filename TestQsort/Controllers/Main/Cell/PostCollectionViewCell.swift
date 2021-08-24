@@ -40,7 +40,7 @@ class PostCollectionViewCell: UICollectionViewCell {
 extension PostCollectionViewCell {
     
     private func configure() {
-        photoImageView.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        photoImageView.backgroundColor = .red
         photoImageView.contentMode = .scaleAspectFill
         photoImageView.clipsToBounds = true
         setupConstraints()

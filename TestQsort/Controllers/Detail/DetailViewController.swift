@@ -42,7 +42,7 @@ extension DetailViewController {
                     guard let data = data, let url = URL(string: data.media_url)  else {return}
                     self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
                     self?.nameLabel.text = data.username.capitalized
-                    self?.dateLabel.text = data.timestamp
+                    self?.dateLabel.text = FormatDate.dateFormater(stringDate: data.timestamp)
                     self?.commentLabel.text = data.caption
                 }
             case .failure(let error):
