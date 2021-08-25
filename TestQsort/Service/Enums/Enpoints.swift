@@ -21,7 +21,7 @@ enum Enpoints {
             return "\(BaseUrl.graphApi.rawValue)\(id)?fields=id,username&access_token=\(token)"
             
         case .mediaData(token: let token):
-            return "\(BaseUrl.graphApi.rawValue)me/media?fields=id,caption,media_type,media_url,timestamp&access_token=\(token)&limit=5"
+            return "\(BaseUrl.graphApi.rawValue)me/media?fields=id,caption,media_type,media_url,timestamp&access_token=\(token)&limit=8"
             
         case .media(mediaId: let mediaId, token: let token):
             return "\(BaseUrl.graphApi.rawValue + mediaId)?fields=id,media_type,media_url,username,timestamp,caption&access_token=\(token)"

@@ -10,11 +10,14 @@ import Locksmith
 
 class DataFetcherService {
     
+    // MARK: - Constants
     static let shared = DataFetcherService()
+    
     var networkDataFetcher = NetworkDataFetcher()
     
     init() {}
     
+    // MARK: - Networking
     func getInstagramUser(completion: @escaping (Result<InstagramUser?, Error>) -> Void) {
         guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] as? String, let userId = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["user_id"] as? Int else { return }
         let urlString = Enpoints.user(id: userId, token: token).path
@@ -38,7 +41,7 @@ class DataFetcherService {
         networkDataFetcher.fetchGenericJSONData(urlString: urlString, response: completion)
     }
     
-    
+    // MARK: - Validate token
     func validate(completion: @escaping (ErrorModel?)-> Void ) {
         guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] as? String, let userId = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["user_id"] as? Int else { return }
         

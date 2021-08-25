@@ -15,7 +15,7 @@ protocol Networking {
 
 class NetworkService: Networking {
 
-    //MARK: - request
+    //MARK: - Request
     func request(urlString: String, completion: @escaping (Data?, Error?) -> Void) {
         guard let url = URL(string: urlString) else {  return }
         let request = URLRequest(url: url)

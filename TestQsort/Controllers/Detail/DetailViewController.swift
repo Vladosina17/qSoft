@@ -10,6 +10,7 @@ import SnapKit
 
 class DetailViewController: UIViewController {
     
+    //MARK: - Properties
     var dataFetcherService = DataFetcherService.shared
     
     let photoImageView = UIImageView()
@@ -19,6 +20,7 @@ class DetailViewController: UIViewController {
     
     var mediaId: String?
     
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -27,28 +29,11 @@ class DetailViewController: UIViewController {
 }
 
 extension DetailViewController {
+    //MARK: - Configure
     private func configure() {
         view.backgroundColor = .white
         photoImageView.contentMode = .scaleAspectFit
         setupConstraints()
-    }
-    
-    func setDetail(mediaId: String?) {
-        guard let id = mediaId else { return }
-        dataFetcherService.getMedia(mediaId: id) { [weak self] result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    guard let data = data, let url = URL(string: data.media_url)  else {return}
-                    self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
-                    self?.nameLabel.text = data.username.capitalized
-                    self?.dateLabel.text = FormatDate.dateFormater(stringDate: data.timestamp)
-                    self?.commentLabel.text = data.caption
-                }
-            case .failure(let error):
-                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
-            }
-        }
     }
     
     private func setupConstraints() {
@@ -81,4 +66,25 @@ extension DetailViewController {
             make.height.equalTo(20)
         }
     }
+    
+    
+    //MARK: - Networking
+    func setDetail(mediaId: String?) {
+        guard let id = mediaId else { return }
+        dataFetcherService.getMedia(mediaId: id) { [weak self] result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    guard let data = data, let url = URL(string: data.media_url)  else {return}
+                    self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+                    self?.nameLabel.text = data.username.capitalized
+                    self?.dateLabel.text = FormatDate.dateFormater(stringDate: data.timestamp)
+                    self?.commentLabel.text = data.caption
+                }
+            case .failure(let error):
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
+    }
+
 }

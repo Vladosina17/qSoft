@@ -12,12 +12,15 @@ import Locksmith
 
 class WebViewController: UIViewController {
     
-    var testUserData: InstagramTestUser?
-    var mainVC: AuthViewController?
+    // MARK: - Constants
     var authFetcherService = AuthFetcherService.shared
     
+    //MARK: - Properties
+    var testUserData: InstagramTestUser?
+    var mainVC: AuthViewController?
     var webView: WKWebView!
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -30,6 +33,8 @@ class WebViewController: UIViewController {
 }
 
 extension WebViewController {
+    //MARK: - Configure
+    
     private func configure() {
         webView = WKWebView(frame: view.bounds)
         webView.navigationDelegate = self
@@ -46,6 +51,8 @@ extension WebViewController {
         }
     }
 }
+
+//MARK: - WKNavigationDelegate
 
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

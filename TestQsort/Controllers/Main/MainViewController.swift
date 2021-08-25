@@ -10,14 +10,18 @@ import Locksmith
 
 class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
      
+    //MARK: - Constants
+    let dataFetcherService = DataFetcherService.shared
+    
     var collectionView: UICollectionView!
     let refreshControl = UIRefreshControl()
     
-    let dataFetcherService = DataFetcherService.shared
+    //MARK: - Properties
     var mediaData: Feed?
     var paginationURL: String?
     var isDataLoading: Bool = false
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -28,6 +32,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
 
 extension MainViewController {
     
+    //MARK: - Configure
     private func configure() {
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выйти", style: .plain, target: self, action: #selector(tapLogOut))
@@ -53,7 +58,7 @@ extension MainViewController {
         view.addSubview(collectionView)
     }
 
-    //MARK: - get Data
+    //MARK: - Networking
     func verificationToken() {
         dataFetcherService.validate { [weak self] error in
             if let errorCode = error?.error.code, errorCode == 190 {
@@ -142,7 +147,7 @@ extension MainViewController {
 }
 
 
-//MARK: - Delegates
+//MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -163,7 +168,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
-    //Pagination
+    //MARK: - Pagination
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         isDataLoading = false
     }

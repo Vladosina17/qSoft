@@ -7,9 +7,9 @@
 
 import Foundation
 
-
 class FormatDate {
     
+    //setting date from string ISO8601
     static func dateFormater(stringDate: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

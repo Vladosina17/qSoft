@@ -10,9 +10,11 @@ import SnapKit
 
 class AuthViewController: UIViewController {
     
+    //MARK: - Properties
     let titleLabel = UILabel()
     let signInButton = UIButton(type: .system)
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -20,6 +22,9 @@ class AuthViewController: UIViewController {
 }
 
 extension AuthViewController {
+    
+    //MARK: - Configure
+    
     private func configure() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         
@@ -53,6 +58,8 @@ extension AuthViewController {
             make.width.equalTo(300)
         }
     }
+    
+    //MARK: - Actions
     
     @objc func tapSignInButton() {
         presentWebViewController()

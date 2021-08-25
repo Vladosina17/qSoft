@@ -11,10 +11,13 @@ import Kingfisher
 
 class PostCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Constants
     static var reuseId: String = "MainCell"
     
+    //MARK: - Properties
     let photoImageView = UIImageView()
     
+    //MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
@@ -25,18 +28,13 @@ class PostCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setCell(media: MediaData) {
-        let url = URL(string: media.media_url)
-        photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImageView.image = nil
     }
 }
 
-
+//MARK: - Configure
 extension PostCollectionViewCell {
     
     private func configure() {
@@ -54,5 +52,10 @@ extension PostCollectionViewCell {
             make.top.left.right.equalToSuperview()
             make.height.equalTo(contentView.snp.width)
         }
+    }
+    
+    func setCell(media: MediaData) {
+        let url = URL(string: media.media_url)
+        photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
     }
 }
