@@ -22,8 +22,7 @@ class MainViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         configure()
         setupCollectionView()
-        getDataUser()
-        getMedia()
+        verificationToken()
     }
 }
 
@@ -53,6 +52,20 @@ extension MainViewController {
         
         view.addSubview(collectionView)
     }
+
+    //MARK: - get Data
+    func verificationToken() {
+        dataFetcherService.validate { [weak self] error in
+            if let errorCode = error?.error.code, errorCode == 190 {
+                DispatchQueue.main.async {
+                    self?.signOut()
+                }
+            } else {
+                self?.getDataUser()
+                self?.getMedia()
+            }
+        }
+    }
     
     private func getDataUser() {
         dataFetcherService.getInstagramUser { [weak self] result in
@@ -75,6 +88,22 @@ extension MainViewController {
                 guard let data = data else { return }
                 self?.mediaData = data
                 self?.paginationURL = data.paging.next
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
+            case .failure(let error):
+                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
+            }
+        }
+    }
+    
+    private func getPagination() {
+        dataFetcherService.getPoginationMediaData(next: paginationURL) { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let media = data else { return }
+                self?.mediaData?.data.append(contentsOf: media.data)
+                self?.paginationURL = media.paging.next
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
@@ -144,17 +173,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if (position + collectionView.frame.size.height) >= collectionView.contentSize.height {
             if !isDataLoading {
                 isDataLoading = true
-                dataFetcherService.getPoginationMediaData(next: paginationURL) { [weak self] result in
-                    switch result {
-                    case .success(let data):
-                        guard let media = data else { return }
-                        self?.mediaData?.data.append(contentsOf: media.data)
-                        self?.paginationURL = media.paging.next
+                dataFetcherService.validate { [weak self] error in
+                    if let errorCode = error?.error.code, errorCode == 190 {
                         DispatchQueue.main.async {
-                            self?.collectionView.reloadData()
+                            self?.signOut()
                         }
-                    case .failure(let error):
-                        self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
+                    } else {
+                        self?.getPagination()
                     }
                 }
             }

@@ -35,6 +35,7 @@
 		485196DA26CBF3C500FAC99F /* AuthFetcherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196D926CBF3C400FAC99F /* AuthFetcherService.swift */; };
 		485196DC26CBFBFA00FAC99F /* Enpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485196DB26CBFBFA00FAC99F /* Enpoints.swift */; };
 		489B6C9326D4E5CF00E6D4C2 /* FormatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489B6C9226D4E5CE00E6D4C2 /* FormatDate.swift */; };
+		489B6C9926D6176E00E6D4C2 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489B6C9826D6176E00E6D4C2 /* ErrorModel.swift */; };
 		48B380D326CCDF60002AD749 /* UIViewController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B380D226CCDF60002AD749 /* UIViewController + Extension.swift */; };
 		C4E7971419CF33CD06EE72C5 /* Pods_TestQsort.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		485196D926CBF3C400FAC99F /* AuthFetcherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthFetcherService.swift; sourceTree = "<group>"; };
 		485196DB26CBFBFA00FAC99F /* Enpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enpoints.swift; sourceTree = "<group>"; };
 		489B6C9226D4E5CE00E6D4C2 /* FormatDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDate.swift; sourceTree = "<group>"; };
+		489B6C9826D6176E00E6D4C2 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		48B380D226CCDF60002AD749 /* UIViewController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extension.swift"; sourceTree = "<group>"; };
 		815CB7266722E2B0FB1E09F3 /* Pods_TestQsort.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestQsort.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D801BA479D0CF4FBA4B5BC /* Pods-TestQsort.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestQsort.debug.xcconfig"; path = "Target Support Files/Pods-TestQsort/Pods-TestQsort.debug.xcconfig"; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				480E914326CA5D7E000421A1 /* CursorDataModel.swift */,
 				480E914726CA5DAC000421A1 /* InstagramMediaModel.swift */,
 				480E914926CA5DC7000421A1 /* MediaTypeModel.swift */,
+				489B6C9826D6176E00E6D4C2 /* ErrorModel.swift */,
 			);
 			path = "Models ";
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				485196D126CB9D8500FAC99F /* DataFetcherService.swift in Sources */,
 				480E914026CA5D29000421A1 /* MediaDataModel.swift in Sources */,
 				480E913326C276DE000421A1 /* WebViewController.swift in Sources */,
+				489B6C9926D6176E00E6D4C2 /* ErrorModel.swift in Sources */,
 				480E912226C140DA000421A1 /* MainTabBarController.swift in Sources */,
 				485196DC26CBFBFA00FAC99F /* Enpoints.swift in Sources */,
 				489B6C9326D4E5CF00E6D4C2 /* FormatDate.swift in Sources */,
