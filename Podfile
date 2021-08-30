@@ -8,6 +8,7 @@ target 'TestQsort' do
  pod 'SnapKit'
  pod 'Alamofire'
  pod 'Locksmith'
+ pod 'ObjectMapper', '~> 3.5'
 
   # Pods for TestQsort
 

@@ -8,11 +8,11 @@
 import Foundation
 
 
-struct ErrorModel: Codable {
-    var error: Errror
+struct ErrorsModel: Codable {
+    var error: ErrorModel
 }
 
-struct Errror: Codable {
+struct ErrorModel: Codable {
     var message: String
     var type: String
     var code: Int

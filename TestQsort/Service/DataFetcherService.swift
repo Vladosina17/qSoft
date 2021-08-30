@@ -42,7 +42,7 @@ class DataFetcherService {
     }
     
     // MARK: - Validate token
-    func validate(completion: @escaping (ErrorModel?)-> Void ) {
+    func validate(completion: @escaping (ErrorsModel?)-> Void ) {
         guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] as? String, let userId = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["user_id"] as? Int else { return }
         
         guard  let urlString = URL(string: Enpoints.user(id: userId, token: token).path) else { return }
@@ -52,7 +52,7 @@ class DataFetcherService {
             guard let data = data else { return }
             if httpResponse?.statusCode == 400 {
                 do {
-                    let object = try JSONDecoder().decode(ErrorModel.self, from: data)
+                    let object = try JSONDecoder().decode(ErrorsModel.self, from: data)
                     completion(object)
                 } catch let jsonError {
                    print(jsonError)
