@@ -6,8 +6,24 @@
 //
 
 import Foundation
+import ObjectMapper
 
 struct InstagramTestUser: Codable {
     var access_token: String
     var user_id: Int
+}
+
+struct InstagramTestUser2: Mappable  {
+    
+    var access_token: String?
+    var user_id: Int?
+    
+    
+    init?(map: Map) {}
+    
+    mutating func mapping(map: Map) {
+        access_token <- map["access_token"]
+        user_id <- map["user_id"]
+    }
+    
 }

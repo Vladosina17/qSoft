@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import ObjectMapper
 
 class DetailViewController: UIViewController {
     
@@ -71,20 +72,38 @@ extension DetailViewController {
     //MARK: - Networking
     func setDetail(mediaId: String?) {
         guard let id = mediaId else { return }
-        dataFetcherService.getMedia(mediaId: id) { [weak self] result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    guard let data = data, let url = URL(string: data.media_url)  else {return}
-                    self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
-                    self?.nameLabel.text = data.username.capitalized
-                    self?.dateLabel.text = FormatDate.dateFormater(stringDate: data.timestamp)
-                    self?.commentLabel.text = data.caption
-                }
-            case .failure(let error):
-                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
+        
+//        dataFetcherService.getMedia(mediaId: id) { [weak self] result in
+//            switch result {
+//            case .success(let data):
+//                DispatchQueue.main.async {
+//                    guard let data = data, let url = URL(string: data.media_url)  else {return}
+//                    self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+//                    self?.nameLabel.text = data.username.capitalized
+//                    self?.dateLabel.text = FormatDate.dateFormater(stringDate: data.timestamp)
+//                    self?.commentLabel.text = data.caption
+//                }
+//            case .failure(let error):
+//                self?.showAlert(with: "Ошибка!", and: error.localizedDescription)
+//            }
+//        }
+        
+        dataFetcherService.getMedia2(mediaId: id) { [weak self] data, error in
+            guard error == nil, let media = data else { return }
+//            print(media)
+            DispatchQueue.main.async {
+                guard let urlString = media.media_url, let url = URL(string: urlString)  else { return }
+                self?.photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+                self?.nameLabel.text = media.username?.capitalized
+                self?.dateLabel.text = FormatDate.dateFormater(stringDate: media.timestamp!)
+                self?.commentLabel.text = media.caption
             }
         }
+        
+        dataFetcherService.getMedia3(mediaId: id) { media, error in
+            print(media)
+        }
+        
     }
 
 }

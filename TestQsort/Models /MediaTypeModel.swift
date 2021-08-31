@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MediaType: String,Codable {
+enum MediaType: String, Codable {
     case IMAGE
     case VIDEO
     case CAROUSEL_ALBUM

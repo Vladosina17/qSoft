@@ -7,6 +7,9 @@
 
 import Foundation
 import Locksmith
+import ObjectMapper
+import Alamofire
+import SwiftyJSON
 
 class DataFetcherService {
     
@@ -39,6 +42,46 @@ class DataFetcherService {
     func getPoginationMediaData(next: String?, completion: @escaping (Result<Feed?, Error>) -> Void) {
         guard let urlString = next else {return}
         networkDataFetcher.fetchGenericJSONData(urlString: urlString, response: completion)
+    }
+    
+    
+    //with objectMapper
+    func getMedia2(mediaId: String, completion: @escaping (InstagramMedia2?, Error?) -> Void) {
+        guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] as? String else { return }
+        let urlString = Enpoints.media(mediaId: mediaId, token: token).path
+        guard let url = URL(string: urlString) else { return }
+        
+        let request = URLRequest(url: url)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(nil, error)
+            } else {
+                guard let data = data else { return }
+                let json = String(decoding: data, as: UTF8.self)
+                let media = InstagramMedia2(JSONString: json)
+                completion(media, nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //with Alomofire
+    func getMedia3(mediaId: String, completion: @escaping (InstagramMedia2?, Error?) -> Void) {
+        guard let token = Locksmith.loadDataForUserAccount(userAccount: "Auth")?["token"] as? String else { return }
+        let urlString = Enpoints.media(mediaId: mediaId, token: token).path
+
+        AF.request(urlString).validate().response { response in
+            switch response.result {
+            case .success(let value):
+                guard let value = value else { return }
+                let json = JSON(value)
+                let media = InstagramMedia2(JSONString: json.rawString()!)
+                completion(media, nil)
+            case .failure(let error):
+                completion(nil, error)
+            }
+        }
     }
     
     // MARK: - Validate token

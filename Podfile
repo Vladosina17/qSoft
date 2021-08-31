@@ -9,6 +9,7 @@ target 'TestQsort' do
  pod 'Alamofire'
  pod 'Locksmith'
  pod 'ObjectMapper', '~> 3.5'
+ pod 'SwiftyJSON', '~> 5.0.0'
 
   # Pods for TestQsort
 
