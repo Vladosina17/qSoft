@@ -8,20 +8,8 @@
 import Foundation
 import ObjectMapper
 
-struct ErrorsModel: Codable {
-    var error: ErrorModel
-}
-
-struct ErrorModel: Codable {
-    var message: String
-    var type: String
-    var code: Int
-    var fbtrace_id: String
-}
-
-
-struct ErrorsModel2: Mappable {
-    var error: ErrorModel2?
+struct ErrorsModel: Mappable {
+    var error: ErrorModel?
     
     init?(map: Map) {}
     
@@ -30,8 +18,7 @@ struct ErrorsModel2: Mappable {
     }
 }
 
-
-struct ErrorModel2: Mappable {
+struct ErrorModel: Mappable {
     var message: String?
     var type: String?
     var code: Int?

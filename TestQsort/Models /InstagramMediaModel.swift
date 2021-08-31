@@ -8,16 +8,7 @@
 import Foundation
 import ObjectMapper
 
-struct InstagramMedia: Codable {
-    var id: String
-    var media_type: MediaType
-    var media_url: String
-    var username: String
-    var timestamp: String
-    var caption: String?
-}
-
-struct InstagramMedia2: Mappable {
+struct InstagramMedia: Mappable {
     
     var id: String?
     var media_url: String?

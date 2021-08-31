@@ -8,13 +8,7 @@
 import Foundation
 import ObjectMapper
 
-struct CursorData: Codable {
-    var before: String
-    var after: String
-}
-
-
-struct CursorData2: Mappable {
+struct CursorData: Mappable {
     var before: String?
     var after: String?
     

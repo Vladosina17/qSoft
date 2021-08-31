@@ -8,17 +8,7 @@
 import Foundation
 import ObjectMapper
 
-struct MediaData: Codable {
-
-    var id: String
-    var caption: String?
-    var media_type: String
-    var media_url: String
-    var timestamp: String
-
-}
-
-struct MediaData2: Mappable {
+struct MediaData: Mappable {
 
     var id: String?
     var caption: String?
@@ -31,10 +21,10 @@ struct MediaData2: Mappable {
 
     mutating func mapping(map: Map) {
         id <- map["id"]
-        caption <- map["id"]
-        media_type <- map["id"]
-        media_url <- map["id"]
-        timestamp <- map["id"]
+        caption <- map["caption"]
+        media_type <- map["media_type"]
+        media_url <- map["media_url"]
+        timestamp <- map["timestamp"]
 
     }
 }

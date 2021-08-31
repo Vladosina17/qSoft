@@ -8,14 +8,8 @@
 import Foundation
 import ObjectMapper
 
-struct PagingData: Codable {
-    var cursors: CursorData
-    var next: String?
-}
-
-
-struct PagingData2: Mappable {
-    var cursors: CursorData2?
+struct PagingData: Mappable {
+    var cursors: CursorData?
     var next: String?
     
     

@@ -61,7 +61,7 @@ extension MainViewController {
     //MARK: - Networking
     func verificationToken() {
         dataFetcherService.validate { [weak self] error in
-            if let errorCode = error?.error.code, errorCode == 190 {
+            if let errorCode = error?.error?.code, errorCode == 190 {
                 DispatchQueue.main.async {
                     self?.signOut()
                 }
@@ -92,7 +92,7 @@ extension MainViewController {
             case .success(let data):
                 guard let data = data else { return }
                 self?.mediaData = data
-                self?.paginationURL = data.paging.next
+                self?.paginationURL = data.paging?.next
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
@@ -106,9 +106,11 @@ extension MainViewController {
         dataFetcherService.getPoginationMediaData(next: paginationURL) { [weak self] result in
             switch result {
             case .success(let data):
-                guard let media = data else { return }
-                self?.mediaData?.data.append(contentsOf: media.data)
-                self?.paginationURL = media.paging.next
+                guard let media = data,
+                      let mediaData = media.data
+                else { return }
+                self?.mediaData?.data?.append(contentsOf: mediaData)
+                self?.paginationURL = media.paging?.next
                 DispatchQueue.main.async {
                     self?.collectionView.reloadData()
                 }
@@ -152,19 +154,19 @@ extension MainViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mediaData?.data.count ?? 0
+        return mediaData?.data?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostCollectionViewCell.reuseId, for: indexPath) as? PostCollectionViewCell,
-              let media = mediaData?.data[indexPath.row] else { return PostCollectionViewCell()}
+              let media = mediaData?.data?[indexPath.row] else { return PostCollectionViewCell()}
         cell.setCell(media: media)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
-        detailVC.mediaId = mediaData?.data[indexPath.row].id
+        detailVC.mediaId = mediaData?.data?[indexPath.row].id
         navigationController?.pushViewController(detailVC, animated: true)
     }
     
@@ -180,7 +182,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             if !isDataLoading {
                 isDataLoading = true
                 dataFetcherService.validate { [weak self] error in
-                    if let errorCode = error?.error.code, errorCode == 190 {
+                    if let errorCode = error?.error?.code, errorCode == 190 {
                         DispatchQueue.main.async {
                             self?.signOut()
                         }

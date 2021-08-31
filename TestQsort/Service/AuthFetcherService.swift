@@ -18,7 +18,7 @@ class AuthFetcherService {
     
     //MARK: Auth
     func authorizeApp(completion: @escaping (_ url: URL?) -> Void) {
-        let urlString = Enpoints.authorizeApp.path
+        let urlString = Endpoints.authorizeApp.path
         networkDataFetcher.fetchAuthURL(urlString: urlString, completion: completion)
     }
     
@@ -55,7 +55,7 @@ class AuthFetcherService {
             ]
         ]
         
-        let urlString = Enpoints.token.path
+        let urlString = Endpoints.token.path
         let postData = getFormBody(parameters, boundary)
         networkDataFetcher.fetchUserToken(urlString: urlString, headers: headers, postData: postData, response: completion)
     }

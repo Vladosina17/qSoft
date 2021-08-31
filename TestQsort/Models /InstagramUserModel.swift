@@ -8,13 +8,7 @@
 import Foundation
 import ObjectMapper
 
-struct InstagramUser: Codable {
-    var id: String
-    var username: String
-}
-
-
-struct InstagramUser2: Mappable {
+struct InstagramUser: Mappable {
     var id: String?
     var username: String?
     

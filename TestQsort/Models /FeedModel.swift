@@ -8,16 +8,10 @@
 import Foundation
 import ObjectMapper
 
-struct Feed: Codable {
-    var data: [MediaData]
-    var paging: PagingData
-}
-
-
-struct Feed2: Mappable {
+struct Feed: Mappable {
     
-    var data: [MediaData2]?
-    var paging: PagingData2?
+    var data: [MediaData]?
+    var paging: PagingData?
     
     init?(map: Map) {}
     

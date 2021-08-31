@@ -63,7 +63,7 @@ extension WebViewController: WKNavigationDelegate {
                 UserDefaults.standard.setValue(true, forKey: "isAuth")
                 guard let testUser = data else { return }
                 do {
-                    try Locksmith.saveData(data: ["token" : testUser.access_token, "user_id" : testUser.user_id], forUserAccount: "Auth")
+                    try Locksmith.saveData(data: ["token" : testUser.access_token!, "user_id" : testUser.user_id!], forUserAccount: "Auth")
                 } catch {
                     print("Unabled to save data")
                 }

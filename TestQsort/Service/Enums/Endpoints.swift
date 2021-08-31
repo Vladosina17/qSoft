@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum Enpoints {
+enum Endpoints {
     case user(id: Int, token: String)
     case mediaData(token: String)
     case media(mediaId: String, token: String)

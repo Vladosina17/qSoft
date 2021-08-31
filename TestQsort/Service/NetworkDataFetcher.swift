@@ -6,10 +6,14 @@
 //
 
 import Foundation
+import ObjectMapper
+import SwiftyJSON
 
 protocol DataFetcher {
-    func fetchGenericJSONData<T: Decodable>(urlString: String, response: @escaping (Result<T?, Error>) -> Void)
+//    func fetchGenericJSONData<T: Decodable>(urlString: String, response: @escaping (Result<T?, Error>) -> Void)
     func fetchAuthURL(urlString: String, completion: @escaping (_ url: URL?) -> Void)
+    
+    func fetchMappableJSONData<T: Mappable>(urlString: String, response: @escaping (Result<T?, Error>) -> Void)
 }
 
 class NetworkDataFetcher: DataFetcher {
@@ -20,12 +24,12 @@ class NetworkDataFetcher: DataFetcher {
         self.networking = networking
     }
     
-    func fetchGenericJSONData<T: Decodable>(urlString: String, response: @escaping (Result<T?, Error>) -> Void) {
+    func fetchMappableJSONData<T: Mappable>(urlString: String, response: @escaping (Result<T?, Error>) -> Void) {
         networking.request(urlString: urlString) { data, error in
             if let error = error {
                 response(.failure(error))
             }
-            let decode = self.decodeJSON(type: T.self, from: data)
+            let decode = self.decodeObjectMapper(type: T.self, from: data)
             response(.success(decode))
         }
     }
@@ -38,12 +42,12 @@ class NetworkDataFetcher: DataFetcher {
         }
     }
     
-    func fetchUserToken<T: Decodable>(urlString: String, headers: [String: String], postData: Data, response: @escaping (Result<T?, Error>) -> Void ) {
+    func fetchUserToken<T: Mappable>(urlString: String, headers: [String: String], postData: Data, response: @escaping (Result<T?, Error>) -> Void ) {
         networking.requestPost(urlString: urlString, headers: headers, postData: postData) { data, error in
             if let error = error {
                 response(.failure(error))
             }
-            let decode = self.decodeJSON(type: T.self, from: data)
+            let decode = self.decodeObjectMapper(type: T.self, from: data)
             response(.success(decode))
         }
     }
@@ -59,4 +63,17 @@ class NetworkDataFetcher: DataFetcher {
             return nil
         }
     }
+    
+    //новое
+    func decodeObjectMapper<T: Mappable>(type: T.Type, from: Data?) -> T? {
+        guard let data = from else { return nil }
+        let json = JSON(data)
+        if let jsonString = json.rawString() {
+            let model = T(JSONString: jsonString)
+            return model
+        } else {
+            return nil
+        }
+    }
+    
 }

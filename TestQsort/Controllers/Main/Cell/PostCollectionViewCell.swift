@@ -55,7 +55,8 @@ extension PostCollectionViewCell {
     }
     
     func setCell(media: MediaData) {
-        let url = URL(string: media.media_url)
-        photoImageView.kf.setImage(with: url,placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
+        guard let urlString = media.media_url,
+              let url = URL(string: urlString) else { return }
+        photoImageView.kf.setImage(with: url, placeholder: UIImage(named: "placeholder"), options : [.transition (. fade ( 0.2 ))])
     }
 }
