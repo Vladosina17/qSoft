@@ -39,7 +39,7 @@ class DataFetcherService {
         networkDataFetcher.fetchMappableJSONData(urlString: urlString, response: completion)
     }
     
-    func getPoginationMediaData(next: String?, completion: @escaping (Result<Feed?, Error>) -> Void) {
+    func getPaginationMediaData(next: String?, completion: @escaping (Result<Feed?, Error>) -> Void) {
         guard let urlString = next else {return}
         networkDataFetcher.fetchMappableJSONData(urlString: urlString, response: completion)
     }

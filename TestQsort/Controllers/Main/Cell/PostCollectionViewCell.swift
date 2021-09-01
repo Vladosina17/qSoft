@@ -45,7 +45,6 @@ extension PostCollectionViewCell {
     }
     
     private func setupConstraints() {
-        
         addSubview(photoImageView)
         
         photoImageView.snp.makeConstraints { make in

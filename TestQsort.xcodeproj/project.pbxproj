@@ -167,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				489B6C9B26DCC71F00E6D4C2 /* Managers */,
-				480E911F26C13E2B000421A1 /* MainViewController.swift */,
+				48891BC226DF83CF000549F6 /* Controller */,
 				480E912626C14DBF000421A1 /* Cell */,
 			);
 			path = Main;
@@ -241,6 +241,14 @@
 				485196DB26CBFBFA00FAC99F /* Endpoints.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		48891BC226DF83CF000549F6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				480E911F26C13E2B000421A1 /* MainViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		489B6C9B26DCC71F00E6D4C2 /* Managers */ = {
